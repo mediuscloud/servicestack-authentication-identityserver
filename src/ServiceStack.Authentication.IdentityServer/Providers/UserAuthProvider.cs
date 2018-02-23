@@ -207,8 +207,8 @@ namespace ServiceStack.Authentication.IdentityServer.Providers
                 return false;
             }
 
-#if NETSTANDARD1_6
 
+#if (NETSTANDARD1_6 || NETSTANDARD2_0)
             if (httpRequest.UrlReferrer == null) return false;
 
             var referrer = new Uri(httpRequest.UrlReferrer.GetLeftAuthority());
@@ -342,7 +342,7 @@ namespace ServiceStack.Authentication.IdentityServer.Providers
             var idAuthTokens = tokens as IdentityServerAuthTokens;
             if (!string.IsNullOrWhiteSpace(idAuthTokens?.IdToken))
             {
-#if NETSTANDARD1_6
+#if (NETSTANDARD1_6 || NETSTANDARD2_0)
 
                 var jwtToken = new System.IdentityModel.Tokens.Jwt.JwtSecurityToken(idAuthTokens.IdToken);
 #elif NET45

@@ -20,7 +20,7 @@ namespace ServiceStack.Authentication.IdentityServer.Clients
             appSettings = settings;
         }
 
-#if NETSTANDARD1_6
+#if (NETSTANDARD1_6 || NETSTANDARD2_0)
         public async Task<IList<Microsoft.IdentityModel.Tokens.SecurityKey>> GetAsync()
 #elif NET45
         public async Task<IList<System.IdentityModel.Tokens.SecurityToken>> GetAsync()
@@ -44,7 +44,7 @@ namespace ServiceStack.Authentication.IdentityServer.Clients
                 return null;
             }
 
-#if NETSTANDARD1_6
+#if (NETSTANDARD1_6 || NETSTANDARD2_0)
             var webKeySet = new Microsoft.IdentityModel.Tokens.JsonWebKeySet(document);
             return webKeySet.GetSigningKeys();
 #elif NET45

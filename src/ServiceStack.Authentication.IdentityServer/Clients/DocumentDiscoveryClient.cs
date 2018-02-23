@@ -8,6 +8,16 @@ namespace ServiceStack.Authentication.IdentityServer.Clients
     using System.Threading.Tasks;
     using Interfaces;
     using Logging;
+#if NETSTANDARD2_0
+    using JsonClient = JsonHttpClient;
+    using OpenIdConnectConfiguration = Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectConfiguration;
+#elif NETSTANDARD1_6
+    using JsonClient = JsonServiceClient;
+    using OpenIdConnectConfiguration = Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectConfiguration;
+#elif NET45
+    using JsonClient = JsonServiceClient;
+    using OpenIdConnectConfiguration = Microsoft.IdentityModel.Protocols.OpenIdConnectConfiguration;
+#endif
 
     internal class DocumentDiscoveryClient : IDocumentDiscoveryClient
     {
@@ -22,9 +32,7 @@ namespace ServiceStack.Authentication.IdentityServer.Clients
 
         public async Task<DocumentDiscoveryResult> GetAsync(string endpoint)
         {
-            IJsonServiceClient client = new JsonServiceClient(appSettings.AuthRealm);
-
-#if NETSTANDARD1_6
+            var client = new JsonClient(appSettings.AuthRealm);
             string document;
             try
             {
@@ -40,25 +48,7 @@ namespace ServiceStack.Authentication.IdentityServer.Clients
                 return null;
             }
 
-            var configuration = new Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectConfiguration(document);
-#elif NET45
-            Dictionary<string, object> document;            
-            try
-            {
-                document = await client.GetAsync<Dictionary<string, object>>(endpoint)
-                                       .ConfigureAwait(false);
-            }
-            catch (AggregateException exception)
-            {
-                foreach (var ex in exception.InnerExceptions)
-                {
-                    Log.Error($"Error occurred requesting document data from {endpoint}", ex);
-                }
-                return null;
-            }
-            
-            var configuration = new Microsoft.IdentityModel.Protocols.OpenIdConnectConfiguration(document);
-#endif
+            var configuration = new OpenIdConnectConfiguration(document);
 
             return new DocumentDiscoveryResult
             {

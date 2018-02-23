@@ -12,7 +12,7 @@ namespace ServiceStack.Authentication.IdentityServer
     using Interfaces;
     using Logging;
 
-#if NETSTANDARD1_6    
+#if (NETSTANDARD1_6 || NETSTANDARD2_0)
 
     using System.IdentityModel.Tokens.Jwt;
     using IdentityModel;

@@ -21,8 +21,12 @@ namespace ServiceStack.Authentication.IdentityServer.Clients
        
         public async Task<TokenResult> RequestToken()
         {
+#if NETSTANDARD2_0
+          var client = new TokenClient(appSettings.RequestTokenUrl, appSettings.ClientId, appSettings.ClientSecret, AuthenticationStyle.PostValues);
+#else
           var client = new TokenClient(appSettings.RequestTokenUrl, appSettings.ClientId, appSettings.ClientSecret);
           client.AuthenticationStyle = AuthenticationStyle.PostValues;
+#endif
           var result = await client.RequestResourceOwnerPasswordAsync(userName: appSettings.Username, password: appSettings.Password, scope: appSettings.Scopes).ConfigureAwait(false);
  
           if (result.IsError)

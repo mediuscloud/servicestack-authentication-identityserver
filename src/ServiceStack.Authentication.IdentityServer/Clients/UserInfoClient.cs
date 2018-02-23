@@ -23,7 +23,7 @@ namespace ServiceStack.Authentication.IdentityServer.Clients
 
         public async Task<IDictionary<string,string>> GetClaims(string accessToken)
         {
-#if NETSTANDARD1_6
+#if (NETSTANDARD1_6 || NETSTANDARD2_0)
             var client = new IdentityModel.Client.UserInfoClient(appSettings.UserInfoUrl);
             var response = await client.GetAsync(accessToken).ConfigureAwait(false);
             if (response.IsError)
