@@ -21,7 +21,7 @@ namespace ServiceStack.Authentication.IdentityServer.Clients
        
         public async Task<TokenResult> RequestToken()
         {
-#if NETSTANDARD2_0
+#if (NETSTANDARD2_0 || NET471)
           var client = new TokenClient(appSettings.RequestTokenUrl, appSettings.ClientId, appSettings.ClientSecret, null, AuthenticationStyle.PostValues);
 #else
           var client = new TokenClient(appSettings.RequestTokenUrl, appSettings.ClientId, appSettings.ClientSecret);

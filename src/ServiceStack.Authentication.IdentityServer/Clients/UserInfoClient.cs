@@ -1,4 +1,4 @@
-﻿// This Source Code Form is subject to the terms of the Mozilla Public
+// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 namespace ServiceStack.Authentication.IdentityServer.Clients
@@ -23,7 +23,7 @@ namespace ServiceStack.Authentication.IdentityServer.Clients
 
         public async Task<IDictionary<string,string>> GetClaims(string accessToken)
         {
-#if (NETSTANDARD1_6 || NETSTANDARD2_0)
+#if (NETSTANDARD1_6 || NETSTANDARD2_0 || NET471)
             var client = new IdentityModel.Client.UserInfoClient(appSettings.UserInfoUrl);
             var response = await client.GetAsync(accessToken).ConfigureAwait(false);
             if (response.IsError)

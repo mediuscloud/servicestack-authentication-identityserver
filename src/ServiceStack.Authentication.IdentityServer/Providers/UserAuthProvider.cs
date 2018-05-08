@@ -1,4 +1,4 @@
-﻿// This Source Code Form is subject to the terms of the Mozilla Public
+// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
@@ -208,7 +208,7 @@ namespace ServiceStack.Authentication.IdentityServer.Providers
             }
 
 
-#if (NETSTANDARD1_6 || NETSTANDARD2_0)
+#if (NETSTANDARD1_6 || NETSTANDARD2_0 || NET471)
             if (httpRequest.UrlReferrer == null) return false;
 
             var referrer = new Uri(httpRequest.UrlReferrer.GetLeftAuthority());
@@ -342,7 +342,7 @@ namespace ServiceStack.Authentication.IdentityServer.Providers
             var idAuthTokens = tokens as IdentityServerAuthTokens;
             if (!string.IsNullOrWhiteSpace(idAuthTokens?.IdToken))
             {
-#if (NETSTANDARD1_6 || NETSTANDARD2_0)
+#if (NETSTANDARD1_6 || NETSTANDARD2_0 || NET471)
 
                 var jwtToken = new System.IdentityModel.Tokens.Jwt.JwtSecurityToken(idAuthTokens.IdToken);
 #elif NET45

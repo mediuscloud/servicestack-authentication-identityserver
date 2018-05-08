@@ -1,4 +1,4 @@
-﻿// This Source Code Form is subject to the terms of the Mozilla Public
+// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 namespace ServiceStack.Authentication.IdentityServer.Clients
@@ -8,7 +8,7 @@ namespace ServiceStack.Authentication.IdentityServer.Clients
     using System.Threading.Tasks;
     using Interfaces;
     using Logging;
-#if NETSTANDARD2_0
+#if (NETSTANDARD2_0 || NET471)
     using JsonClient = JsonHttpClient;
     using OpenIdConnectConfiguration = Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectConfiguration;
 #elif NETSTANDARD1_6
@@ -16,11 +16,12 @@ namespace ServiceStack.Authentication.IdentityServer.Clients
     using OpenIdConnectConfiguration = Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectConfiguration;
 #elif NET45
     using JsonClient = JsonServiceClient;
-    using OpenIdConnectConfiguration = Microsoft.IdentityModel.Protocols.OpenIdConnectConfiguration;
+    using OpenIdConnectConfiguration = Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectConfiguration;
 #endif
 
     internal class DocumentDiscoveryClient : IDocumentDiscoveryClient
     {
+        
         private static readonly ILog Log = LogManager.GetLogger(typeof(DocumentDiscoveryClient));
 
         private readonly IIdentityServerAuthProviderSettings appSettings;
