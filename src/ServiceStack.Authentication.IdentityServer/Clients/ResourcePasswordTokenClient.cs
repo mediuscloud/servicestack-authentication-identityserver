@@ -1,4 +1,4 @@
-﻿// This Source Code Form is subject to the terms of the Mozilla Public
+// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 namespace ServiceStack.Authentication.IdentityServer.Clients
@@ -22,7 +22,7 @@ namespace ServiceStack.Authentication.IdentityServer.Clients
         public async Task<TokenResult> RequestToken()
         {
 #if NETSTANDARD2_0
-          var client = new TokenClient(appSettings.RequestTokenUrl, appSettings.ClientId, appSettings.ClientSecret, AuthenticationStyle.PostValues);
+          var client = new TokenClient(appSettings.RequestTokenUrl, appSettings.ClientId, appSettings.ClientSecret, null, AuthenticationStyle.PostValues);
 #else
           var client = new TokenClient(appSettings.RequestTokenUrl, appSettings.ClientId, appSettings.ClientSecret);
           client.AuthenticationStyle = AuthenticationStyle.PostValues;
