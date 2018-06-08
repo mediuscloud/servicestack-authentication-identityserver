@@ -22,7 +22,7 @@
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="IdentityModel" Version="3.6.1" />
+    <PackageReference Include="IdentityModel" Version="3.7.0" />
     <PackageReference Include="ServiceStack.Core" Version="5.1.0" />
     <PackageReference Include="ServiceStack.HttpClient.Core" Version="5.1.0" />
     <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="5.2.2" />
